@@ -109,7 +109,7 @@ push: 是否需要将构建好的镜像推送到docker镜像仓库，如果填tr
       access-key-secret: ${{ secrets.SECRETACCESSKEY }}
 
     # 完成docker镜像打包，支持多个平台
-    - name: "build springcloud demo for linux/amd64,linux/arm64/v8,windows/amd64"
+    - name: "build nginx image for linux/386,linux/amd64,linux/arm/v5,linux/arm/v7,linux/arm64/v8,linux/mips64le,linux/ppc64le,linux/s390x"
       uses: huaweicloud/swr-multiplatform-build-action@v1.0.0
       with:
         image_tag: swr.cn-north-4.myhuaweicloud.com/hcloudcli/nginx:nginx-12-v1.0.0.1
