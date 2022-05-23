@@ -4,7 +4,7 @@ on:
   push:
     branches: 
     - 'master'
-    
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -16,7 +16,7 @@ jobs:
     - name: Set up JDK 19 for maven build
       uses: actions/setup-java@v1
       with:
-        java-version: 18
+        java-version: 19
 
     # 完成java项目打包
     - name: build maven project

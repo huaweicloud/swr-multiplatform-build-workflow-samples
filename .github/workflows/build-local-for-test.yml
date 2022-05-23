@@ -24,4 +24,4 @@ jobs:
     - name: "build springcloud demo for linux/amd64"
       uses: huaweicloud/swr-multiplatform-build-action@v1.0.0
       with:
-        imagetag: swr.cn-north-4.myhuaweicloud.com/hcloudcli/nginx:nginx-12-v1.0.0.1
+        image_tag: swr.cn-north-4.myhuaweicloud.com/hcloudcli/nginx:nginx-12-v1.0.0.1
