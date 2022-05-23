@@ -118,6 +118,7 @@ push: 是否需要将构建好的镜像推送到docker镜像仓库，如果填tr
         file: ./dockerfiles/Dockerfile-nginx
  ```
 ## **查看结果**
+### 1、jdkdemo:jdk19-v1.0.0.4镜像
 登录华为云SWR服务，查看hcloudcli/jdkdemo:jdk19-v1.0.0.4镜像的manifast内容  
 ```yaml
 digest: sha256:e4090ef801d8240bf6dc0ff878a39cad98eaf1e811cf8a4307171588065d291c
@@ -155,3 +156,64 @@ manifests:
  ![avatar](./images/20220509-195911.png)
 ###  3、windows x86-64平台 
  ![avatar](./images/20220510-085854.png)
+ 
+ ### 2、nginx:nginx-12-v1.0.0.1镜像
+ 登录华为云SWR服务，查看hcloudcli/nginx:nginx-12-v1.0.0.1镜像的manifast内容  
+```yaml
+manifest详情：
+mediaType: application/vnd.docker.distribution.manifest.list.v2+json
+schemaVersion: 2
+manifests:
+  - mediaType: application/vnd.docker.distribution.manifest.v2+json
+    digest: 'sha256:70e174bc7c8292c14f30a3d0ada29320ae6c74e3ab898f9b6afcb5fd75d3c45d'
+    size: 1777
+    platform:
+      architecture: '386'
+      os: linux
+  - mediaType: application/vnd.docker.distribution.manifest.v2+json
+    digest: 'sha256:8a338905d951ada843f5da94d0fc74b1a5774adfc2cd02ca829375a1be03bae2'
+    size: 1777
+    platform:
+      architecture: amd64
+      os: linux
+  - mediaType: application/vnd.docker.distribution.manifest.v2+json
+    digest: 'sha256:d218e1ca90c0379f95f8da392e2c262dfd5f05000ff1323375eb431bdedb3232'
+    size: 1777
+    platform:
+      architecture: arm
+      os: linux
+      variant: v5
+  - mediaType: application/vnd.docker.distribution.manifest.v2+json
+    digest: 'sha256:24a7fb035d51a69ff01bd3536bc223583eb4b7d403035711f96c6a7a91275380'
+    size: 1777
+    platform:
+      architecture: arm
+      os: linux
+      variant: v7
+  - mediaType: application/vnd.docker.distribution.manifest.v2+json
+    digest: 'sha256:71325ee689517cc060c21872e3a340b8796aa468525e24f2c8b23543418a309c'
+    size: 1777
+    platform:
+      architecture: arm64
+      os: linux
+  - mediaType: application/vnd.docker.distribution.manifest.v2+json
+    digest: 'sha256:8d2ce28fa1017ba93fd562d28ea316659d7727cff9841c5e566f812d92a3a430'
+    size: 1777
+    platform:
+      architecture: mips64le
+      os: linux
+  - mediaType: application/vnd.docker.distribution.manifest.v2+json
+    digest: 'sha256:24bc1d191d61d99a23fa73fb844e7dc549a6696884812bfcc2abdf71c05209e6'
+    size: 1777
+    platform:
+      architecture: ppc64le
+      os: linux
+  - mediaType: application/vnd.docker.distribution.manifest.v2+json
+    digest: 'sha256:7e2a3beb4ae91ee91c85c2c5278b732bd1537c9d0dff0c02913350b51c3f40dd'
+    size: 1777
+    platform:
+      architecture: s390x
+      os: linux
+ ```
+  效果如下
+ ![avatar](./images/swr-nginx-multiplatform.png)
