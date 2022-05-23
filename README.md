@@ -18,16 +18,16 @@
 
 ## **前置工作**
 (1).如果需要推送到SWR等Docker registry上，需要添加一个docker login的action，添加好登录账号密码等信息    
-(2).需要确定基础镜像支持的平台  
+(2).需要确定基础镜像支持的平台，可以登录dockerhub官网查看  
 如19-jdk,支持windows/amd64,linux/amd64,linux/arm64/v8 这三个平台,  
 ![avatar](./images/20220509-165318.jpg)
 
 ## **参数说明:**
-imagetag:需要打包的docker镜像标签，如   swr.cn-north-4.myhuaweicloud.com/hcloudcli/jdkdemo:jdk19-v1.0.0.4  
-platforms: 当前需要打包支持的平台，用逗号隔开，如  linux/amd64,linux/arm64/v8,windows/amd64  
-file: Dockerfile路径，默认为Dockerfile,如果在其他目录，则填写相对路径,如 ./docker-v1.0.0.1/Dockerfile  
-uselatestbuildx: 是否需要使用最新版本的docker buildx来构建docker镜像  
-push: 是否需要将构建好的镜像推送到docker镜像仓库，如果填true，需要再前面增加一个docker login的  action完成镜像仓库的登录  
+image_tag:需要打包的docker镜像标签，必填，如   swr.cn-north-4.myhuaweicloud.com/hcloudcli/jdkdemo:jdk19-v1.0.0.4  
+platforms: 当前需要打包支持的平台，用逗号隔开，如  linux/amd64,linux/arm64/v8,windows/amd64，非必填，如果不填写的话，会默认打包当前环境所在的平台，如ubuntu-latest所在的linux/amd64  
+file: Dockerfile路径，默认为Dockerfile,如果在其他目录，则填写相对路径或者绝对路径,如 ./dockerfiles/Dockerfile  
+use_latest_buildx: 是否需要使用最新版本的docker buildx来构建docker镜像,如果为true,会比较当前安装的buildx和官方发布的最新版本，有差异的话会安装最新版本  
+push: 是否需要将构建好的镜像推送到docker镜像仓库，如果填true，需要再前面增加一个docker login的  action完成镜像仓库的登录，在构建完成之后会自动推送到华为云SWR  
 
 ## **使用样例**
 为docker镜像添加 linux/amd64,linux/arm64/v8,windows/amd64 平台支持 ,注意github暂不支持基于windows镜像跑workflow，请不要runs-on: windows相关的镜像
