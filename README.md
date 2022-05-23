@@ -17,8 +17,9 @@
 ```
 
 ## **前置工作**
-(1).如果需要推送到SWR等Docker registry上，需要添加一个docker login的action，添加好登录账号密码等信息    
-(2).需要确定基础镜像支持的平台，可以登录dockerhub官网查看  
+(1).如果项目代码需要打包，需要提前完成打包动作，并修改Dockerfile
+(2).如果需要推送到SWR等Docker registry上，需要添加一个docker login的action，添加好登录账号密码等信息    
+(3).需要确定基础镜像支持的平台，可以登录dockerhub官网查看  
 如19-jdk,支持windows/amd64,linux/amd64,linux/arm64/v8 这三个平台,  
 ![avatar](./images/20220509-165318.jpg)
 
@@ -98,6 +99,7 @@ push: 是否需要将构建好的镜像推送到docker镜像仓库，如果填tr
 步骤说明如下   
 (1)、设置docker login，填写AK和SK，完成华为云SWR容器镜像服务的登录
 (2)、登录doocker hub，查看openjdk镜像，可以看到openjdk:19-jdk 支持  linux/386,linux/amd64,linux/arm/v5,linux/arm/v7,linux/arm64/v8,linux/mips64le,linux/ppc64le,linux/s390x 平台，因此platforms参数可以填写些平台中的一个或多个，也可以填写全部。push参数填写为true，即打包完之后就push到华为云SWR
+(3)、file参数指定Dockerfile的路径,此处为./dockerfiles/Dockerfile-nginx
 ![avatar](./images/nginx-multiplatform.png)
 ```yaml
     # docker login,设置登陆到华为的swr
@@ -151,13 +153,13 @@ manifests:
  效果如下
  ![avatar](./images/20220509-194824.png)
  
- ## **镜像使用:**
+ ### **镜像使用:**
  在linunx或者windows的x86-64平台或者linux的arm-64平台，直接docker pull这个镜像，docker会自动下载对应平台的镜像  
-### 1、linux x86-64平台
+#### 1、linux x86-64平台
 ![avatar](./images/20220510-094740.png)
-### 2、linux arm-64平台:
+#### 2、linux arm-64平台:
  ![avatar](./images/20220509-195911.png)
-###  3、windows x86-64平台 
+####  3、windows x86-64平台 
  ![avatar](./images/20220510-085854.png)
  
  ### 2、nginx:nginx-12-v1.0.0.1镜像
