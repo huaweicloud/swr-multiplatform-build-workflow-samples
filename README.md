@@ -30,24 +30,93 @@ use_latest_buildx: 是否需要使用最新版本的docker buildx来构建docker
 push: 是否需要将构建好的镜像推送到docker镜像仓库，如果填true，需要再前面增加一个docker login的  action完成镜像仓库的登录，在构建完成之后会自动推送到华为云SWR  
 
 ## **使用样例**
-为docker镜像添加 linux/amd64,linux/arm64/v8,windows/amd64 平台支持 ,注意github暂不支持基于windows镜像跑workflow，请不要runs-on: windows相关的镜像
+### 1、简单样例，只构建代码和打包镜像
+步骤说明如下  
+(1)、完成jdk安装和java项目打包  
+(2)、填写image_tag参数，镜像会工具当前环境所在的平台，打包出一个 linux/amd64的镜像
 ```yaml
-      - uses: huaweicloud/swr-login@v1
-        name: Login to HuaweiCloud SWR
-        with:
-          region: cn-north-4
-          access-key-id: ${{ secrets.ACCESSKEY }}
-          access-key-secret: ${{ secrets.SECRETACCESSKEY }}
-          
-      - uses: huaweicloud/swr-multiplatform-build-action@v1.0.0
-        name: "build docker image for multiplatform"
-        with:
-         image_tag: swr.cn-north-4.myhuaweicloud.com/hcloudcli/jdkdemo:jdk19-v1.0.0.4
-         platforms: linux/amd64,linux/arm64/v8,windows/amd64
-         use_latest_buildx: false
-         push: true
-         file: ./Dockerfile
+    # 安装JDK和maven
+    - name: Set up JDK 19 for maven build
+      uses: actions/setup-java@v1
+      with:
+        java-version: 19
+
+    # 完成java项目打包
+    - name: build maven project
+      run: mvn clean -U package -Dmaven.test.skip
+      
+    # 完成docker镜像打包
+    - name: "build springcloud demo for linux/amd64"
+      uses: huaweicloud/swr-multiplatform-build-action@v1.0.0
+      with:
+        image_tag: swr.cn-north-4.myhuaweicloud.com/hcloudcli/jdkdemo:jdk19-v1.0.0.4
 ```
+详情可参考 build-local-for-test.yml  
+
+### 2、普通样例，完成镜像的windows和linux平台构建，并上传到swr
+步骤说明如下  
+(1)、完成jdk安装和java项目打包  
+(2)、设置docker login，填写AK和SK，完成华为云SWR容器镜像服务的登录
+(3)、设置docker buildx，可以选配，插件会检查当前环境是否安装了docker buildx,如果没有的话，会自动安装
+(4)、登录doocker hub，查看openjdk镜像，可以看到openjdk:19-jdk 支持  linux/amd64,linux/arm64/v8,windows/amd64三个平台，因此platforms参数可以填写这三个中的一个或多个，也可以填写全部。push参数填写为true，即打包完之后就push到华为云SWR
+```yaml
+    # 安装JDK和maven
+    - name: Set up JDK 19 for maven build
+      uses: actions/setup-java@v1
+      with:
+        java-version: 19
+
+    # 完成java项目打包
+    - name: build maven project
+      run: mvn clean -U package -Dmaven.test.skip 
+
+    # docker login,设置登陆到华为的swr
+    - name: Log in to HuaweiCloud SWR
+      uses: huaweicloud/swr-login@v1
+      with:
+      region: cn-north-4
+      access-key-id: ${{ secrets.ACCESSKEY }}
+      access-key-secret: ${{ secrets.SECRETACCESSKEY }}
+    # 设置 docker 环境
+    - name: Set up Docker Buildx
+      id: buildx
+      uses: docker/setup-buildx-action@v1
+      
+    # 完成docker镜像打包，支持linux/amd64,linux/arm64/v8,windows/amd64三个平台
+    - name: "build springcloud demo for linux/amd64,linux/arm64/v8,windows/amd64"
+      uses: huaweicloud/swr-multiplatform-build-action@v1.0.0
+      with:
+        image_tag: swr.cn-north-4.myhuaweicloud.com/hcloudcli/jdkdemo:jdk19-v1.0.0.4
+        platforms: linux/amd64,linux/arm64/v8,windows/amd64
+        use_latest_buildx: false
+        push: true
+        file: ./Dockerfile
+```
+
+### 3、复杂样例，完成镜像的复杂多平台构建，并上传到swr
+步骤说明如下   
+(1)、设置docker login，填写AK和SK，完成华为云SWR容器镜像服务的登录
+(2)、登录doocker hub，查看openjdk镜像，可以看到openjdk:19-jdk 支持  linux/386,linux/amd64,linux/arm/v5,linux/arm/v7,linux/arm64/v8,linux/mips64le,linux/ppc64le,linux/s390x 平台，因此platforms参数可以填写些平台中的一个或多个，也可以填写全部。push参数填写为true，即打包完之后就push到华为云SWR
+![avatar](./images/nginx-multiplatform.png)
+```yaml
+    # docker login,设置登陆到华为的swr
+    - name: Log in to HuaweiCloud SWR
+      uses: huaweicloud/swr-login@v1
+      with:
+      region: cn-north-4
+      access-key-id: ${{ secrets.ACCESSKEY }}
+      access-key-secret: ${{ secrets.SECRETACCESSKEY }}
+
+    # 完成docker镜像打包，支持多个平台
+    - name: "build springcloud demo for linux/amd64,linux/arm64/v8,windows/amd64"
+      uses: huaweicloud/swr-multiplatform-build-action@v1.0.0
+      with:
+        image_tag: swr.cn-north-4.myhuaweicloud.com/hcloudcli/nginx:nginx-12-v1.0.0.1
+        platforms: linux/386,linux/amd64,linux/arm/v5,linux/arm/v7,linux/arm64/v8,linux/mips64le,linux/ppc64le,linux/s390x
+        use_latest_buildx: true
+        push: true
+        file: ./dockerfiles/Dockerfile-nginx
+ ```
 ## **查看结果**
 登录华为云SWR服务，查看hcloudcli/jdkdemo:jdk19-v1.0.0.4镜像的manifast内容  
 ```yaml
