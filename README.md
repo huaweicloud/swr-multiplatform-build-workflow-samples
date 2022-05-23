@@ -51,7 +51,7 @@ push: 是否需要将构建好的镜像推送到docker镜像仓库，如果填tr
       with:
         image_tag: swr.cn-north-4.myhuaweicloud.com/hcloudcli/jdkdemo:jdk19-v1.0.0.4
 ```
-详情可参考 build-local-for-test.yml  
+详情可参考 ./github/workflow/build-local-for-test.yml  
 
 ### 2、普通样例，完成镜像的windows和linux平台构建，并上传到swr
 步骤说明如下  
@@ -59,6 +59,7 @@ push: 是否需要将构建好的镜像推送到docker镜像仓库，如果填tr
 (2)、设置docker login，填写AK和SK，完成华为云SWR容器镜像服务的登录
 (3)、设置docker buildx，可以选配，插件会检查当前环境是否安装了docker buildx,如果没有的话，会自动安装
 (4)、登录doocker hub，查看openjdk镜像，可以看到openjdk:19-jdk 支持  linux/amd64,linux/arm64/v8,windows/amd64三个平台，因此platforms参数可以填写这三个中的一个或多个，也可以填写全部。push参数填写为true，即打包完之后就push到华为云SWR
+![avatar](./images/20220509-165318.jpg)
 ```yaml
     # 安装JDK和maven
     - name: Set up JDK 19 for maven build
@@ -92,7 +93,7 @@ push: 是否需要将构建好的镜像推送到docker镜像仓库，如果填tr
         push: true
         file: ./Dockerfile
 ```
-
+详情可参考 ./github/workflow/build-springclouddemo-for-multiplatform.yml  
 ### 3、复杂样例，完成镜像的复杂多平台构建，并上传到swr
 步骤说明如下   
 (1)、设置docker login，填写AK和SK，完成华为云SWR容器镜像服务的登录
@@ -117,7 +118,9 @@ push: 是否需要将构建好的镜像推送到docker镜像仓库，如果填tr
         push: true
         file: ./dockerfiles/Dockerfile-nginx
  ```
-## **查看结果**
+ 详情可参考 ./github/workflow/build-nginx-for-multiplatform.yml  
+ 
+## **打包查看结果**
 ### 1、jdkdemo:jdk19-v1.0.0.4镜像
 登录华为云SWR服务，查看hcloudcli/jdkdemo:jdk19-v1.0.0.4镜像的manifast内容  
 ```yaml
