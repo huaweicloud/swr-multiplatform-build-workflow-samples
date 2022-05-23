@@ -37,7 +37,7 @@ jobs:
     - name: "build springcloud demo for linux/amd64,linux/arm64/v8,windows/amd64"
       uses: huaweicloud/swr-multiplatform-build-action@v1.0.0
       with:
-        image_tag: swr.cn-north-4.myhuaweicloud.com/hcloudcli/jdkdemo:jdk19-v1.0.0.6
+        image_tag: swr.cn-north-4.myhuaweicloud.com/hcloudcli/jdkdemo:jdk19-v1.0.0.4
         platforms: linux/amd64,linux/arm64/v8,windows/amd64
         use_latest_buildx: false
         push: true
