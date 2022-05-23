@@ -4,12 +4,7 @@ on:
   push:
     branches: 
     - 'master'
-
-env:
-  ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
-  CURRENT_DATE: ''
-  ipaddr: ${ip_address}
-  REGIONID: ${region_id} 
+    
 jobs:
   build:
     runs-on: ubuntu-latest
