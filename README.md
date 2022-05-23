@@ -155,11 +155,11 @@ manifests:
  
  ### **镜像使用:**
  在linunx或者windows的x86-64平台或者linux的arm-64平台，直接docker pull这个镜像，docker会自动下载对应平台的镜像  
-#### 1、linux x86-64平台
+#### (1)、linux x86-64平台
 ![avatar](./images/20220510-094740.png)
-#### 2、linux arm-64平台:
+#### (2)、linux arm-64平台:
  ![avatar](./images/20220509-195911.png)
-####  3、windows x86-64平台 
+#### (3)、windows x86-64平台 
  ![avatar](./images/20220510-085854.png)
  
  ### 2、nginx:nginx-12-v1.0.0.1镜像
