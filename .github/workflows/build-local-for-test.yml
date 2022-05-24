@@ -1,0 +1,27 @@
+name: "commit-master"
+
+on:
+  push:
+    branches: 
+    - 'master'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check Out 
+      uses: actions/checkout@v2
+        
+    - name: Set up JDK 19 for maven build
+      uses: actions/setup-java@v1
+      with:
+        java-version: 19
+
+    # 完成java项目打包
+    - name: build maven project
+      run: mvn clean -U package -Dmaven.test.skip 
+
+    - name: "build springcloud demo for linux/amd64"
+      uses: huaweicloud/swr-multiplatform-build-action@v1.0.0
+      with:
+        image_tag: swr.cn-north-4.myhuaweicloud.com/hcloudcli/jdkdemo:jdk19-v1.0.0.4
