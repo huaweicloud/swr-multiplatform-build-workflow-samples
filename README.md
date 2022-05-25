@@ -150,7 +150,7 @@ manifests:
       architecture: amd64
       os: windows
  ```
- 效果如下
+ 效果截图如下
  ![avatar](./images/20220509-194824.png)
  
  ### **镜像使用:**
@@ -220,5 +220,5 @@ manifests:
       architecture: s390x
       os: linux
  ```
-  效果如下
+ 效果截图如下
  ![avatar](./images/swr-nginx-multiplatform.png)
