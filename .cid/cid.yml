@@ -1,0 +1,20 @@
+version: '1.0'
+name: swr-multiplatform-build-workflow-samples
+language: java
+dependencies:
+  base:
+    jdk: best
+    maven: best
+artifacts:
+  image:
+    - >-
+      registry-cbu.huawei.com/dtse-hdn/swr-multiplatform-build-workflow-samples:1.0_$build_number
+machine:
+ standard:
+    euler:
+      - default
+scripts:
+  - mvn package -Dmaven.test.skip=true
+  - >-
+    docker build -t
+   registry-cbu.huawei.com/dtse-hdn/swr-multiplatform-build-workflow-samples:1.0_${CID_BUILD_NUMBER} .
