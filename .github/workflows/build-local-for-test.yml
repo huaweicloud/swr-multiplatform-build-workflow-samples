@@ -12,16 +12,16 @@ jobs:
     - name: Check Out 
       uses: actions/checkout@v2
         
-    - name: Set up JDK 19 for maven build
+    - name: Set up JDK 8 for maven build
       uses: actions/setup-java@v1
       with:
-        java-version: 19
+        java-version: 8
 
     # 完成java项目打包
-    - name: build maven project
+    - name: Build Maven Project
       run: mvn clean -U package -Dmaven.test.skip 
 
-    - name: "build springcloud demo for linux/amd64"
-      uses: huaweicloud/swr-multiplatform-build-action@v1.0.0
+    - name: Build SpringCloud Demo for linux/amd64
+      uses: huaweicloud/swr-multiplatform-build-action@v1.1.0
       with:
         image_tag: swr.cn-north-4.myhuaweicloud.com/hcloudcli/jdkdemo:jdk19-v1.0.0.4
