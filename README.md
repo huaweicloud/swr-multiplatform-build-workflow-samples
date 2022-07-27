@@ -41,22 +41,22 @@
 (2) 填写image_tag参数，镜像会工具当前环境所在的平台，打包出一个 linux/amd64的镜像
 ```yaml
     # 安装JDK和maven
-    - name: Set up JDK 8 for Maven Build
+    - name: Set up JDK 8 for Maven build
       uses: actions/setup-java@v1
       with:
         java-version: 8
 
     # 完成java项目打包
-    - name: Build Maven Project
+    - name: Build Maven project
       run: mvn clean -U package -Dmaven.test.skip
       
     # 完成docker镜像打包
-    - name: Build SpringCloud Demo for linux/amd64
+    - name: Build Spring Cloud demo for linux/amd64
       uses: huaweicloud/swr-multiplatform-build-action@v1.1.0
       with:
         image_tag: swr.cn-north-4.myhuaweicloud.com/hcloudcli/jdkdemo:jdk19-v1.0.0.4
 ```
-详情可参考 [./github/workflows/build-local-for-test.yml](.github/workflows/build-local-for-test.yml)  
+详情可参考 [./github/workflows/build-simple-demo.yml](.github/workflows/build-simple-demo.yml)  
 
 ### 2、普通样例，完成镜像的windows和linux平台构建，并上传到swr
 步骤说明如下  
@@ -67,13 +67,13 @@
 ![avatar](./images/20220509-165318.jpg)
 ```yaml
     # 安装JDK和maven
-    - name: Set up JDK 8 for Maven Build
+    - name: Set up JDK 8 for Maven build
       uses: actions/setup-java@v1
       with:
         java-version: 8
 
     # 完成java项目打包
-    - name: Build Maven Project
+    - name: Build Maven project
       run: mvn clean -U package -Dmaven.test.skip 
 
     # docker login,设置登陆到华为的swr
@@ -89,7 +89,7 @@
       uses: docker/setup-buildx-action@v1
       
     # 完成docker镜像打包，支持linux/amd64,linux/arm64/v8,windows/amd64三个平台
-    - name: Build SpringCloud Demo for linux/amd64,linux/arm64/v8,windows/amd64
+    - name: Build Spring Cloud demo for linux/amd64,linux/arm64/v8,windows/amd64
       uses: huaweicloud/swr-multiplatform-build-action@v1.1.0
       with:
         image_tag: swr.cn-north-4.myhuaweicloud.com/hcloudcli/jdkdemo:jdk19-v1.0.0.4
@@ -116,7 +116,7 @@
         access-key-secret: ${{ secrets.SECRETACCESSKEY }}
 
     # 完成docker镜像打包，支持多个平台
-    - name: Build Nginx Image for linux/386,linux/amd64,linux/arm/v5,linux/arm/v7,linux/arm64/v8,linux/mips64le,linux/ppc64le,linux/s390x
+    - name: Build Nginx image for linux/386,linux/amd64,linux/arm/v5,linux/arm/v7,linux/arm64/v8,linux/mips64le,linux/ppc64le,linux/s390x
       uses: huaweicloud/swr-multiplatform-build-action@v1.1.0
       with:
         image_tag: swr.cn-north-4.myhuaweicloud.com/hcloudcli/nginx:nginx-12-v1.0.0.1
