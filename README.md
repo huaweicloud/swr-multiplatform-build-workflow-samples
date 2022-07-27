@@ -19,9 +19,9 @@
 ```
 
 ## **前置工作**
-(1).如果项目代码需要打包，需要提前完成打包动作，并修改Dockerfile
-(2).如果需要推送到SWR等Docker registry上，需要添加一个docker login的action，添加好登录账号密码等信息    
-(3).需要确定基础镜像支持的平台，可以登录dockerhub官网查看  
+(1) 如果项目代码需要打包，需要提前完成打包动作，并修改Dockerfile  
+(2) 如果需要推送到SWR等Docker registry上，需要添加一个docker login的action，添加好登录账号密码等信息     
+(3) 需要确定基础镜像支持的平台，可以登录dockerhub官网查看  
 如19-jdk,支持windows/amd64,linux/amd64,linux/arm64/v8 这三个平台,  
 ![avatar](./images/20220509-165318.jpg)
 
@@ -37,8 +37,8 @@
 ## **使用样例**
 ### 1、简单样例，只构建代码和打包镜像
 步骤说明如下  
-(1)、完成jdk安装和java项目打包  
-(2)、填写image_tag参数，镜像会工具当前环境所在的平台，打包出一个 linux/amd64的镜像
+(1) 完成jdk安装和java项目打包  
+(2) 填写image_tag参数，镜像会工具当前环境所在的平台，打包出一个 linux/amd64的镜像
 ```yaml
     # 安装JDK和maven
     - name: Set up JDK 19 for maven build
@@ -60,10 +60,10 @@
 
 ### 2、普通样例，完成镜像的windows和linux平台构建，并上传到swr
 步骤说明如下  
-(1)、完成jdk安装和java项目打包  
-(2)、设置docker login，填写AK和SK，完成华为云SWR容器镜像服务的登录
-(3)、设置docker buildx，可以选配，插件会检查当前环境是否安装了docker buildx,如果没有的话，会自动安装
-(4)、登录doocker hub，查看openjdk镜像，可以看到openjdk:19-jdk 支持  linux/amd64,linux/arm64/v8,windows/amd64三个平台，因此platforms参数可以填写这三个中的一个或多个，也可以填写全部。push参数填写为true，即打包完之后就push到华为云SWR
+(1) 完成jdk安装和java项目打包  
+(2) 设置docker login，填写AK和SK，完成华为云SWR容器镜像服务的登录  
+(3) 设置docker buildx，可以选配，插件会检查当前环境是否安装了docker buildx,如果没有的话，会自动安装  
+(4) 登录doocker hub，查看openjdk镜像，可以看到openjdk:19-jdk 支持  linux/amd64,linux/arm64/v8,windows/amd64三个平台，因此platforms参数可以填写这三个中的一个或多个，也可以填写全部。push参数填写为true，即打包完之后就push到华为云SWR
 ![avatar](./images/20220509-165318.jpg)
 ```yaml
     # 安装JDK和maven
@@ -101,9 +101,9 @@
 详情可参考 ./github/workflow/build-springclouddemo-for-multiplatform.yml  
 ### 3、复杂样例，完成镜像的复杂多平台构建，并上传到swr
 步骤说明如下   
-(1)、设置docker login，填写AK和SK，完成华为云SWR容器镜像服务的登录
-(2)、登录doocker hub，查看openjdk镜像，可以看到openjdk:19-jdk 支持  linux/386,linux/amd64,linux/arm/v5,linux/arm/v7,linux/arm64/v8,linux/mips64le,linux/ppc64le,linux/s390x 平台，因此platforms参数可以填写些平台中的一个或多个，也可以填写全部。push参数填写为true，即打包完之后就push到华为云SWR
-(3)、file参数指定Dockerfile的路径,此处为./dockerfiles/Dockerfile-nginx
+(1) 设置docker login，填写AK和SK，完成华为云SWR容器镜像服务的登录  
+(2) 登录doocker hub，查看openjdk镜像，可以看到openjdk:19-jdk 支持  linux/386,linux/amd64,linux/arm/v5,linux/arm/v7,linux/arm64/v8,linux/mips64le,linux/ppc64le,linux/s390x 平台，因此platforms参数可以填写些平台中的一个或多个，也可以填写全部。push参数填写为true，即打包完之后就push到华为云SWR  
+(3) file参数指定Dockerfile的路径,此处为./dockerfiles/Dockerfile-nginx
 ![avatar](./images/nginx-multiplatform.png)
 ```yaml
     # docker login,设置登陆到华为的swr
@@ -159,11 +159,11 @@ manifests:
  
  ### **镜像使用:**
  在linunx或者windows的x86-64平台或者linux的arm-64平台，直接docker pull这个镜像，docker会自动下载对应平台的镜像  
-#### (1)、linux x86-64平台
+#### (1) linux x86-64平台
 ![avatar](./images/20220510-094740.png)
-#### (2)、linux arm-64平台:
+#### (2) linux arm-64平台:
  ![avatar](./images/20220509-195911.png)
-#### (3)、windows x86-64平台 
+#### (3) windows x86-64平台 
  ![avatar](./images/20220510-085854.png)
  
  ### 2、nginx:nginx-12-v1.0.0.1镜像
