@@ -1,4 +1,4 @@
-name: "commit-master"
+name: Build Spring Cloud demo for multiplatform
 
 on:
   push:
@@ -10,32 +10,32 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Check Out 
+    - name: Checkout 
       uses: actions/checkout@v2
         
-    - name: Set up JDK 19 for maven build
+    - name: Set up JDK 8 for Maven build
       uses: actions/setup-java@v1
       with:
-        java-version: 19
+        java-version: 8
 
     # 完成java项目打包
-    - name: build maven project
+    - name: Build Maven project
       run: mvn clean -U package -Dmaven.test.skip 
 
     # docker login,设置登陆到华为的swr
-    - name: Log in to HuaweiCloud SWR
-      uses: huaweicloud/swr-login@v1
+    - name: Log in to Huawei Cloud SWR
+      uses: huaweicloud/swr-login@v2.0.0
       with:
-      region: cn-north-4
-      access-key-id: ${{ secrets.ACCESSKEY }}
-      access-key-secret: ${{ secrets.SECRETACCESSKEY }}
+        region: cn-north-4
+        access-key-id: ${{ secrets.ACCESSKEY }}
+        access-key-secret: ${{ secrets.SECRETACCESSKEY }}
     # 设置 docker 环境
     - name: Set up Docker Buildx
       id: buildx
       uses: docker/setup-buildx-action@v1
 
-    - name: "build springcloud demo for linux/amd64,linux/arm64/v8,windows/amd64"
-      uses: huaweicloud/swr-multiplatform-build-action@v1.0.0
+    - name: Build Spring Cloud demo for linux/amd64,linux/arm64/v8,windows/amd64
+      uses: huaweicloud/swr-multiplatform-build-action@v1.1.0
       with:
         image_tag: swr.cn-north-4.myhuaweicloud.com/hcloudcli/jdkdemo:jdk19-v1.0.0.4
         platforms: linux/amd64,linux/arm64/v8,windows/amd64

@@ -14,6 +14,7 @@ machine:
     euler:
       - default
 scripts:
+  - sed -i "s#openjdk:19-jdk#swr.cn-north-6.myhuaweicloud.com/codeci/maven:openjdk-19#" Dockerfile
   - mvn package -Dmaven.test.skip=true
   - >-
     docker build -t
