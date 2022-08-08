@@ -226,3 +226,8 @@ manifests:
  ```
  效果截图如下
  ![avatar](./images/swr-nginx-multiplatform.png)
+
+ ## 公网域名说明
+```
+代码demo工程中华为云活动页面：'https://activity.huaweicloud.com'
+```
