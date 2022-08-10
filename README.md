@@ -52,7 +52,7 @@
       
     # 完成docker镜像打包
     - name: Build Spring Cloud demo for linux/amd64
-      uses: huaweicloud/swr-multiplatform-build-action@v1.1.0
+      uses: huaweicloud/swr-multiplatform-build-action@v1.2.0
       with:
         image_tag: swr.cn-north-4.myhuaweicloud.com/hcloudcli/jdkdemo:jdk19-v1.0.0.4
 ```
@@ -78,7 +78,7 @@
 
     # docker login,设置登陆到华为的swr
     - name: Log in to Huawei Cloud SWR
-      uses: huaweicloud/swr-login@v2.0.0
+      uses: huaweicloud/swr-login@v2.1.0
       with:
         region: cn-north-4
         access-key-id: ${{ secrets.ACCESSKEY }}
@@ -90,7 +90,7 @@
       
     # 完成docker镜像打包,支持linux/amd64,linux/arm64/v8,windows/amd64三个平台
     - name: Build Spring Cloud demo for linux/amd64,linux/arm64/v8,windows/amd64
-      uses: huaweicloud/swr-multiplatform-build-action@v1.1.0
+      uses: huaweicloud/swr-multiplatform-build-action@v1.2.0
       with:
         image_tag: swr.cn-north-4.myhuaweicloud.com/hcloudcli/jdkdemo:jdk19-v1.0.0.4
         platforms: linux/amd64,linux/arm64/v8,windows/amd64
@@ -109,7 +109,7 @@
 ```yaml
     # docker login,设置登陆到华为的swr
     - name: Log in to Huawei Cloud SWR
-      uses: huaweicloud/swr-login@v2.0.0
+      uses: huaweicloud/swr-login@v2.1.0
       with:
         region: cn-north-4
         access-key-id: ${{ secrets.ACCESSKEY }}
@@ -117,7 +117,7 @@
 
     # 完成docker镜像打包,支持多个平台
     - name: Build Nginx image for linux/386,linux/amd64,linux/arm/v5,linux/arm/v7,linux/arm64/v8,linux/mips64le,linux/ppc64le,linux/s390x
-      uses: huaweicloud/swr-multiplatform-build-action@v1.1.0
+      uses: huaweicloud/swr-multiplatform-build-action@v1.2.0
       with:
         image_tag: swr.cn-north-4.myhuaweicloud.com/hcloudcli/nginx:nginx-12-v1.0.0.1
         platforms: linux/386,linux/amd64,linux/arm/v5,linux/arm/v7,linux/arm64/v8,linux/mips64le,linux/ppc64le,linux/s390x
@@ -226,3 +226,6 @@ manifests:
  ```
  效果截图如下
  ![avatar](./images/swr-nginx-multiplatform.png)
+
+## workflow sample中使用公网地址说明
+1. [代码demo工程中华为云活动页面](https://activity.huaweicloud.com)

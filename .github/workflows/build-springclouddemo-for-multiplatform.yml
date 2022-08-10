@@ -24,7 +24,7 @@ jobs:
 
     # docker login,设置登陆到华为的swr
     - name: Log in to Huawei Cloud SWR
-      uses: huaweicloud/swr-login@v2.0.0
+      uses: huaweicloud/swr-login@v2.1.0
       with:
         region: cn-north-4
         access-key-id: ${{ secrets.ACCESSKEY }}
@@ -35,7 +35,7 @@ jobs:
       uses: docker/setup-buildx-action@v1
 
     - name: Build Spring Cloud demo for linux/amd64,linux/arm64/v8,windows/amd64
-      uses: huaweicloud/swr-multiplatform-build-action@v1.1.0
+      uses: huaweicloud/swr-multiplatform-build-action@v1.2.0
       with:
         image_tag: swr.cn-north-4.myhuaweicloud.com/hcloudcli/jdkdemo:jdk19-v1.0.0.4
         platforms: linux/amd64,linux/arm64/v8,windows/amd64
