@@ -22,6 +22,6 @@ jobs:
       run: mvn clean -U package -Dmaven.test.skip 
 
     - name: Build Spring Cloud demo for linux/amd64
-      uses: huaweicloud/swr-multiplatform-build-action@v1.1.0
+      uses: huaweicloud/swr-multiplatform-build-action@v1.2.0
       with:
         image_tag: swr.cn-north-4.myhuaweicloud.com/hcloudcli/jdkdemo:jdk19-v1.0.0.4
